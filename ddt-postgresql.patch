@@ -1,0 +1,12 @@
+diff -urN ddt-0.5.9.org/framework/ddtdb/DbPsql.h ddt-0.5.9/framework/ddtdb/DbPsql.h
+--- ddt-0.5.9.org/framework/ddtdb/DbPsql.h	Tue May  6 13:10:39 2003
++++ ddt-0.5.9/framework/ddtdb/DbPsql.h	Wed May  7 07:49:16 2003
+@@ -17,6 +17,7 @@
+ #define DBPSQL_H
+ 
+ using namespace std;
++#include <postgres.h>
+ #include <libpq++.h>
+ 
+ #include "Db.h"
+
