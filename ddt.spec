@@ -8,8 +8,10 @@ Group:		Networking/Daemons
 Source0:	http://download.sourceforge.net/ddt/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-cgi-to-cgic.patch
+Patch2:		%{name}-bind-includes-hack.patch
 URL:		http://www.ddts.org/
-Source1:	%{name}.init
+Source1:	%{name}-client.init
+Source2:	%{name}-server.init
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
@@ -18,7 +20,9 @@ BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	postgresql-c++-devel
 BuildRequires:	libgcrypt-devel
 BuildRequires:	regexx-devel
+BuildRequires:	macrosystem-devel
 BuildRequires:	opt
+BuildRequires:	sgml-tools
 Prereq:		chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -47,6 +51,7 @@ Klient Dynamicznego DNSu.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 rm -f missing
@@ -58,46 +63,82 @@ CPPFLAGS="-I%{_includedir}/cgilibc"; export CPPFLAGS
 	--enable-docs \
 	--enable-server \
 	--enable-admin \
-	--with-pgsql-libdir=%{_libdir} \
-	--with-pgsql-incdir=%{_includedir}
+	--with-pgsql-incdir=%{_includedir} \
+	--with-pgsql-libdir=%{_libdir}
+# fixme
+echo "all install:" > docs/Makefile
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8} \
-	$RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
+install -d $RPM_BUILD_ROOT%{_sysconfdir},/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT/etc/logrotate.d
+install -d $RPM_BUILD_ROOT/var/{lib/ddt-client,run/ddt}
 
-install client/ddtcd.conf $RPM_BUILD_ROOT%{_sysconfdir}
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/ddtcd
-
-install client/{ddtc,ddtcd} $RPM_BUILD_ROOT%{_sbindir}
-install client/{ddtc,ddtcd}.8 $RPM_BUILD_ROOT%{_mandir}/man8
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+	
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}-client
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}-server
+install debian/ddt-client.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-client
+install debian/ddt-server.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-server
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/chkconfig --add ddtcd
-if [ -f /var/lock/subsys/ddtcd ]; then
-	/etc/rc.d/init.d/ddtcd restart >&2
+/sbin/chkconfig --add %{name}-server
+if [ -f /var/lock/subsys/%{name}-server ]; then
+	/etc/rc.d/init.d/%{name}-server restart >&2
 else
-	echo "Run \"/etc/rc.d/init.d/ddtcd start\" to start ddtcd daemon."
+	echo "Run \"/etc/rc.d/init.d/%{name}-server start\" to start ddtd daemon."
 fi
 
 %preun
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/ddtcd ]; then
-		/etc/rc.d/init.d/ddtcd stop >&2
+	if [ -f /var/lock/subsys/%{name}-server ]; then
+		/etc/rc.d/init.d/%{name}-server stop >&2
 	fi
-	/sbin/chkconfig --del ddtcd
+	/sbin/chkconfig --del %{name}-server
+fi
+
+%post client
+/sbin/chkconfig --add %{name}-client
+if [ -f /var/lock/subsys/%{name}-client ]; then
+        /etc/rc.d/init.d/%{name}-client restart >&2
+else
+        echo "Run \"/etc/rc.d/init.d/%{name}-client start\" to start ddtcd daemon."
+fi
+
+%preun client
+if [ "$1" = "0" ]; then
+        if [ -f /var/lock/subsys/%{name}-client ]; then
+                /etc/rc.d/init.d/%{name}-client stop >&2
+        fi
+        /sbin/chkconfig --del %{name}-client
 fi
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS README INSTALL THANKS ddt.lsm
-%attr(754,root,root) /etc/rc.d/init.d/ddtcd
-%config(noreplace) %{_sysconfdir}/ddtcd.conf
+%doc AUTHORS BUGS NEWS README THANKS TODO
+%doc docs/*.sgml
+%attr(754,root,root) /etc/rc.d/init.d/%{name}-server
+%attr(755,root,root) %{_sbindir}/ddtd
+%{_mandir}/man8/ddtd.8*
+%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/%{name}-server
+
+%files client
+%defattr(644,root,root,755)
+%doc docs/DDT*.sgml
+%attr(754,root,root) /etc/rc.d/init.d/%{name}-client
 %attr(755,root,root) %{_sbindir}/ddtc
 %attr(755,root,root) %{_sbindir}/ddtcd
+%config(noreplace) %{_sysconfdir}/ddtcd.conf
 %{_mandir}/man8/ddtc.8*
 %{_mandir}/man8/ddtcd.8*
+%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/%{name}-client
+
+%files cgi
+%defattr(644,root,root,755)
