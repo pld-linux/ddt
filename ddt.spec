@@ -5,7 +5,7 @@ Version:	0.5.9
 Release:	2
 License:	GPL
 Group:		Networking/Daemons
-Source0:	http://download.sourceforge.net/ddt/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5:	30bb784bde3eef1e1a6eb61ab77f4b90
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-cgi-to-cgic.patch
