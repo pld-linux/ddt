@@ -1,0 +1,22 @@
+diff -urN ddt-0.5.9.org/admin/DbAdmin.h ddt-0.5.9/admin/DbAdmin.h
+--- ddt-0.5.9.org/admin/DbAdmin.h	Tue May  6 14:39:02 2003
++++ ddt-0.5.9/admin/DbAdmin.h	Tue May  6 20:36:35 2003
+@@ -16,6 +16,8 @@
+ 
+ #include <opt.h>
+ #include <openssl/md5.h>
++#undef __P
++#define __P(x) x
+ #include <arpa/inet.h> // for string to ip conversion
+ 
+ // general defines
+diff -urN ddt-0.5.9.org/admin/Makefile.am ddt-0.5.9/admin/Makefile.am
+--- ddt-0.5.9.org/admin/Makefile.am	Tue May  6 14:39:02 2003
++++ ddt-0.5.9/admin/Makefile.am	Tue May  6 20:33:55 2003
+@@ -1,5 +1,5 @@
+ CXXFLAGS = -g -O2 -fno-strict-prototype
+-INCLUDES = -I../framework/include @PGSQL_INCLUDE@ @BIND_INCLUDE@
++INCLUDES = -I../framework/include @BIND_INCLUDE@ @PGSQL_INCLUDE@
+ LDFLAGS  = -L../framework/lib @PGSQL_LDFLAGS@ @BIND_LDFLAGS@ @OPT_LDFLAGS@
+ LDADD   += -lLogger -lDdtDB @PGSQL_LIBS@ @BIND_LIBS@ @OPT_LIBS@
+ 
