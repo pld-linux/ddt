@@ -1,14 +1,7 @@
-diff -urN ddt-0.5.org/Makefile.am ddt-0.5/Makefile.am
---- ddt-0.5.org/Makefile.am	Wed Sep 18 14:41:30 2002
-+++ ddt-0.5/Makefile.am	Wed Sep 18 14:42:53 2002
-@@ -9,12 +9,12 @@
- endif
- 
- if DDT_DEBUG
--CXXFLAGS += -g
--CFLAGS += _DEBUG
-+CXXFLAGS = -g
-+CFLAGS = _DEBUG
+diff -urN ddt-0.5.9.org/Makefile.am ddt-0.5.9/Makefile.am
+--- ddt-0.5.9.org/Makefile.am	Tue May  6 13:10:39 2003
++++ ddt-0.5.9/Makefile.am	Tue May  6 13:24:37 2003
+@@ -13,13 +13,9 @@
  endif
  
  if DDT_DOCS
@@ -16,40 +9,16 @@ diff -urN ddt-0.5.org/Makefile.am ddt-0.5/Makefile.am
 +DOCS_DIR = docs
  endif
  
- SUBDIRS = ${BASEDIRS} ${SERVER_DIR} ${ADMIN_DIR} ${DOCS_DIR}
-diff -urN ddt-0.5.org/acinclude.m4 ddt-0.5/acinclude.m4
---- ddt-0.5.org/acinclude.m4	Wed Sep 18 14:41:30 2002
-+++ ddt-0.5/acinclude.m4	Wed Sep 18 14:59:05 2002
-@@ -106,7 +106,7 @@
-     fi
-     
-     if test "x$BIND_LIBS" = "x"; then
--      BIND_LIBS=-lbind
-+      BIND_LIBS=-lresolv
-     fi
+ SUBDIRS = ${BASEDIRS} ${CLIENT_DIR} ${SERVER_DIR} ${ADMIN_DIR} ${DOCS_DIR}
  
-     old_CFLAGS=$CFLAGS
-@@ -116,7 +116,7 @@
-     LDFLAGS="$LDFLAGS $BIND_LDFLAGS"
-     LIBS="$LIBS $BIND_LIBS"
-     
--    AC_CHECK_LIB(bind,__res_update,[
-+    AC_CHECK_LIB(resolv,__res_update,[
-         AC_SUBST(BIND_LIBS)
-         AC_SUBST(BIND_LDFLAGS)
-         AC_SUBST(BIND_INCLUDE)
-@@ -143,7 +143,7 @@
-     fi
+-if DDT_DEBUG
+-CXXFLAGS += -g
+-CFLAGS += _DEBUG
+-endif
  
-     BIND_LDFLAGS=-L$BIND_LIBDIR
--    BIND_LIBS=-lbind
-+    BIND_LIBS=-lresolv
-     ])
-     
-     AC_ARG_WITH(bind-include,
-diff -urN ddt-0.5.org/admin/Makefile.am ddt-0.5/admin/Makefile.am
---- ddt-0.5.org/admin/Makefile.am	Wed Sep 18 14:41:30 2002
-+++ ddt-0.5/admin/Makefile.am	Wed Sep 18 14:43:06 2002
+diff -urN ddt-0.5.9.org/admin/Makefile.am ddt-0.5.9/admin/Makefile.am
+--- ddt-0.5.9.org/admin/Makefile.am	Tue May  6 13:10:39 2003
++++ ddt-0.5.9/admin/Makefile.am	Tue May  6 13:17:31 2003
 @@ -1,7 +1,7 @@
  CXXFLAGS = -g -O2 -fno-strict-prototype
  INCLUDES = -I../framework/include @PGSQL_INCLUDE@ @BIND_INCLUDE@
@@ -59,15 +28,15 @@ diff -urN ddt-0.5.org/admin/Makefile.am ddt-0.5/admin/Makefile.am
  
  noinst_PROGRAMS = ddt-admin admin.cgi
  
-diff -urN ddt-0.5.org/configure.in ddt-0.5/configure.in
---- ddt-0.5.org/configure.in	Wed Sep 18 14:41:30 2002
-+++ ddt-0.5/configure.in	Wed Sep 18 14:47:29 2002
-@@ -67,6 +67,8 @@
- dnl AC_CHECK_LIB(opt, main, , AC_MSG_ERROR(opt lib not found!)) 
- AC_LIB_OPT
+diff -urN ddt-0.5.9.org/configure.in ddt-0.5.9/configure.in
+--- ddt-0.5.9.org/configure.in	Tue May  6 13:10:39 2003
++++ ddt-0.5.9/configure.in	Tue May  6 13:18:51 2003
+@@ -93,6 +93,8 @@
+   AC_DEFINE(DDT_DEBUG)
+ fi
  
 +AC_CHECK_LIB(tinfo, tgetflag, , AC_MSG_ERROR(tinfo lib not found!))
 +
- AC_DEFINE(CONF_DIR, "@sysconfdir@")
- AC_SUBST(sysconfdir)
- 
+ dnl Use --bindir to specify location of user binaries.
+ dnl Use --sbindir to specify location of system binaries.
+ dnl Use --mandir to specify location of manpages.
