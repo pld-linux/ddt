@@ -47,6 +47,18 @@ Dynamic DNS Tools Client.
 %description clients -l pl
 Klient Dynamicznego DNSu.
 
+%package cgi
+Summary:        CGI scripts for Dynamic DNS Tools Server
+Summary(pl):    Skrypty CGI do Serwera Dynamicznego DNSu
+Group:          Applications/Networking
+Requires:	webserver
+
+%description cgi
+CGI scripts for Dynamic DNS Tools Server.
+
+%description cgi -l pl
+Skrypty CGI do Serwera Dynamicznego DNSu.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -104,7 +116,7 @@ if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del %{name}-server
 fi
 
-%post client
+%post clients
 /sbin/chkconfig --add %{name}-client
 if [ -f /var/lock/subsys/%{name}-client ]; then
         /etc/rc.d/init.d/%{name}-client restart >&2
@@ -112,7 +124,7 @@ else
         echo "Run \"/etc/rc.d/init.d/%{name}-client start\" to start ddtcd daemon."
 fi
 
-%preun client
+%preun clients
 if [ "$1" = "0" ]; then
         if [ -f /var/lock/subsys/%{name}-client ]; then
                 /etc/rc.d/init.d/%{name}-client stop >&2
@@ -129,7 +141,7 @@ fi
 %{_mandir}/man8/ddtd.8*
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/%{name}-server
 
-%files client
+%files clients
 %defattr(644,root,root,755)
 %doc docs/DDT*.sgml
 %attr(754,root,root) /etc/rc.d/init.d/%{name}-client
