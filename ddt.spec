@@ -7,15 +7,17 @@ License:	GPL
 Group:		Networking/Daemons
 Source0:	http://download.sourceforge.net/ddt/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am_ac.patch
+Patch1:		%{name}-cgi-to-cgic.patch
 URL:		http://www.ddts.org/
 Source1:	%{name}.init
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
-BuildRequires:	cgilib-devel
+BuildRequires:	cgilibc-devel
 BuildRequires:	openssl-devel >= 0.9.7
-BuildRequires:	postgresql-devel < 7.3.0
+BuildRequires:	postgresql-c++-devel
 BuildRequires:	libgcrypt-devel
+BuildRequires:	regexx-devel
 BuildRequires:	opt
 Prereq:		chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -44,18 +46,20 @@ Klient Dynamicznego DNSu.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__automake}
+CPPFLAGS="-I%{_includedir}/cgilibc"; export CPPFLAGS
 %configure \
 	--enable-docs \
 	--enable-server \
 	--enable-admin \
 	--with-pgsql-libdir=%{_libdir} \
-	--with-pgsql-incdir=%{_includedir}/postgresql
+	--with-pgsql-incdir=%{_includedir}
 %{__make}
 
 %install
