@@ -1,5 +1,5 @@
-Summary:	Dynamic DNS Tools Server
-Summary(pl):	Serwer dynamicznego DNSu
+Summary:	Dynamic DNS Tools server
+Summary(pl):	Serwer dynamicznego DNS-u
 Name:		ddt
 Version:	0.5.9
 Release:	2
@@ -7,14 +7,14 @@ License:	GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Source0-md5:	30bb784bde3eef1e1a6eb61ab77f4b90
+Source1:	%{name}-client.init
+Source2:	%{name}-server.init
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-cgi-to-cgic.patch
 Patch2:		%{name}-bind-includes-hack.patch
 Patch3:		%{name}-nobody.patch
 Patch4:		%{name}-postgresql.patch
 URL:		http://www.ddts.org/
-Source1:	%{name}-client.init
-Source2:	%{name}-server.init
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
@@ -31,39 +31,40 @@ Requires(post,preun):	/sbin/chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-DDT stands for Dynamic Dns Tools. The goal of the project is to
+DDT stands for Dynamic DNS Tools. The goal of the project is to
 provide an open and free (in the GPL-sense) set of tools that will
 permit the deployment of secure and reliable dynamic DNS services.
 
 %description -l pl
-DDT oznacza Dynamiczne Narzêdzia DNS. Celem projektu jest dostarczenie
-otwartego i wolnego (w sensie GPL) zestawu narzêdzi pozwalaj±cych na
-stworzenie bezpiecznego i niezawodnego systemu dynamicznego DNS.
+DDT oznacza Dynamiczne Narzêdzia DNS-u. Celem projektu jest
+dostarczenie otwartego i wolnego (w sensie GPL) zestawu narzêdzi
+pozwalaj±cych na stworzenie bezpiecznego i niezawodnego systemu
+dynamicznego DNS-u.
 
 %package clients
-Summary:	Dynamic DNS Tools Client
-Summary(pl):	Klient Dynamicznego DNSu
+Summary:	Dynamic DNS Tools client
+Summary(pl):	Klient dynamicznego DNS-u
 Group:		Applications/Networking
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
 
 %description clients
-Dynamic DNS Tools Client.
+Dynamic DNS Tools client.
 
 %description clients -l pl
-Klient Dynamicznego DNSu.
+Klient dynamicznego DNS-u.
 
 %package cgi
-Summary:	CGI scripts for Dynamic DNS Tools Server
-Summary(pl):	Skrypty CGI do Serwera Dynamicznego DNSu
+Summary:	CGI scripts for Dynamic DNS Tools server
+Summary(pl):	Skrypty CGI do serwera dynamicznego DNS-u
 Group:		Applications/Networking
 Requires:	webserver
 
 %description cgi
-CGI scripts for Dynamic DNS Tools Server.
+CGI scripts for Dynamic DNS Tools server.
 
 %description cgi -l pl
-Skrypty CGI do Serwera Dynamicznego DNSu.
+Skrypty CGI do serwera dynamicznego DNS-u.
 
 %prep
 %setup -q
