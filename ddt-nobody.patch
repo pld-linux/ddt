@@ -1,0 +1,24 @@
+diff -urN ddt-0.5.9.org/client/ddtcd.cc ddt-0.5.9/client/ddtcd.cc
+--- ddt-0.5.9.org/client/ddtcd.cc	Tue May  6 14:39:02 2003
++++ ddt-0.5.9/client/ddtcd.cc	Tue May  6 23:06:58 2003
+@@ -294,7 +294,7 @@
+     struct passwd *nobody;
+     struct group *nogroup;
+     nobody = getpwnam ("nobody");
+-    nogroup = getgrnam ("nogroup");
++    nogroup = getgrnam ("nobody");
+ 
+     // FIXME: to check or not to check ?
+     // create the dir. we do not check since we will create anyway
+diff -urN ddt-0.5.9.org/server/ddtd.cc ddt-0.5.9/server/ddtd.cc
+--- ddt-0.5.9.org/server/ddtd.cc	Tue May  6 14:39:02 2003
++++ ddt-0.5.9/server/ddtd.cc	Tue May  6 23:07:13 2003
+@@ -303,7 +303,7 @@
+     struct passwd *nobody;
+     struct group *nogroup;
+     nobody = getpwnam ("nobody");
+-    nogroup = getgrnam ("nogroup");
++    nogroup = getgrnam ("nobody");
+     
+     // create the dir.
+     mkdir(PID_DIR "/ddt", S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
