@@ -26,7 +26,8 @@ BuildRequires:	opt
 BuildRequires:	postgresql-c++-devel
 BuildRequires:	regexx-devel
 BuildRequires:	sgml-tools
-Prereq:		chkconfig
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,6 +44,8 @@ stworzenie bezpiecznego i niezawodnego systemu dynamicznego DNS.
 Summary:	Dynamic DNS Tools Client
 Summary(pl):	Klient Dynamicznego DNSu
 Group:		Applications/Networking
+PreReq:		rc-scripts
+Requires(post,preun):	/sbin/chkconfig
 
 %description clients
 Dynamic DNS Tools Client.
@@ -103,7 +106,7 @@ install debian/ddt-client.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-clie
 install debian/ddt-server.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-server
 
 install admin/templates/* $RPM_BUILD_ROOT/home/services/httpd/html/%{name}
-install admin/*.{conf,cgi} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin/
+install admin/*.{conf,cgi} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
 
 %clean
 rm -rf $RPM_BUILD_ROOT
