@@ -54,9 +54,9 @@ Dynamic DNS Tools Client.
 Klient Dynamicznego DNSu.
 
 %package cgi
-Summary:        CGI scripts for Dynamic DNS Tools Server
-Summary(pl):    Skrypty CGI do Serwera Dynamicznego DNSu
-Group:          Applications/Networking
+Summary:	CGI scripts for Dynamic DNS Tools Server
+Summary(pl):	Skrypty CGI do Serwera Dynamicznego DNSu
+Group:		Applications/Networking
 Requires:	webserver
 
 %description cgi
