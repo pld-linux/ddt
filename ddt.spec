@@ -19,12 +19,12 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
 BuildRequires:	cgilibc-devel
-BuildRequires:	openssl-devel >= 0.9.7
-BuildRequires:	postgresql-c++-devel
 BuildRequires:	libgcrypt-devel
-BuildRequires:	regexx-devel
 BuildRequires:	macrosystem-devel
+BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	opt
+BuildRequires:	postgresql-c++-devel
+BuildRequires:	regexx-devel
 BuildRequires:	sgml-tools
 Prereq:		chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -89,11 +89,10 @@ echo "all install:" > docs/Makefile
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
-install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d}
-install -d $RPM_BUILD_ROOT/etc/logrotate.d
-install -d $RPM_BUILD_ROOT/var/{lib/ddt-client,run/ddt}
-install -d $RPM_BUILD_ROOT/home/services/httpd/{cgi-bin,html/%{name}}
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8} \
+	$RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d} \
+	$RPM_BUILD_ROOT{/etc/logrotate.d,/var/{lib/ddt-client,run/ddt}} \
+	$RPM_BUILD_ROOT/home/services/httpd/{cgi-bin,html/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
