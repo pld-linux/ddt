@@ -45,7 +45,7 @@ case "$1" in
 	if [ -f /var/lock/subsys/ddt-server ]; then
 		msg_stopping "Dynamic DNS Tools Server"
 		killproc ddtd
-		rm -f /var/run/ddt/ddtd.pid >/dev/null 2>&1
+		rm -f /var/run/ddt/ddtd.pid /var/lock/subsys/ddt-server >/dev/null 2>&1
 	else
 		msg_not_running "Dynamic DNS Tools Server"
 		exit 1

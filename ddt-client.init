@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# ddt-server		ddt-server (secure shell daemon)
+# ddt-client		ddt-client (secure shell daemon)
 #
 # chkconfig:	345 10 90
 #
-# description:	ddt-server 
+# description:	ddt-client 
 
 
 # Source function library
@@ -14,7 +14,7 @@
 . /etc/sysconfig/network
 
 # Get service config
-[ -f /etc/sysconfig/ddt-server ] && . /etc/sysconfig/ddt-server
+[ -f /etc/sysconfig/ddt-client ] && . /etc/sysconfig/ddt-client
 
 # Check that networking is up.
 if is_yes "${NETWORKING}"; then
@@ -31,20 +31,20 @@ fi
 case "$1" in
   start)
 	# Check if the service is already running?
-	if [ ! -f /var/lock/subsys/ddt-server ]; then
+	if [ ! -f /var/lock/subsys/ddt-client ]; then
 		msg_starting "Dynamic DNS daemon"
 		daemon ddtcd
 		RETVAL=$?
-		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ddt-server		
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ddt-client		
 	else
 		msg_already_running "Dynamic DNS daemon"
 	fi
 	;;
   stop)
-	if [ -f /var/lock/subsys/ddt-server ]; then
+	if [ -f /var/lock/subsys/ddt-client ]; then
 		msg_stopping "Dynamic DNS daemon"
 		killproc ddtcd
-		rm -f /var/run/ddtcd.pid >/dev/null 2>&1
+		rm -f /var/run/ddtcd.pid /var/lock/subsys/ddt-client >/dev/null 2>&1
 	else
 		msg_not_running "Dynamic DNS daemon"
 		exit 1
