@@ -28,7 +28,7 @@ BuildRequires:	regexx-devel
 BuildRequires:	sgml-tools
 PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 DDT stands for Dynamic DNS Tools. The goal of the project is to
