@@ -2,7 +2,7 @@ Summary:	Dynamic DNS Tools Server
 Summary(pl):	Serwer dynamicznego DNSu
 Name:		ddt
 Version:	0.5.9
-Release:	1
+Release:	2
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://download.sourceforge.net/ddt/%{name}-%{version}.tar.gz
@@ -10,6 +10,7 @@ Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-cgi-to-cgic.patch
 Patch2:		%{name}-bind-includes-hack.patch
 Patch3:		%{name}-nobody.patch
+Patch4:		%{name}-postgresql.patch
 URL:		http://www.ddts.org/
 Source1:	%{name}-client.init
 Source2:	%{name}-server.init
@@ -66,13 +67,14 @@ Skrypty CGI do Serwera Dynamicznego DNSu.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-CPPFLAGS="-I%{_includedir}/cgilibc"; export CPPFLAGS
+CPPFLAGS="-I%{_includedir}/cgilibc -I%{_includedir}/postgresql/server"; export CPPFLAGS
 %configure \
 	--enable-docs \
 	--enable-server \
