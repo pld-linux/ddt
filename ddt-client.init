@@ -46,7 +46,7 @@ case "$1" in
 		killproc ddtcd
 		rm -f /var/run/ddtcd.pid >/dev/null 2>&1
 	else
-		msg_not_runnin"Dynamic DNS daemon"
+		msg_not_running "Dynamic DNS daemon"
 		exit 1
 	fi	
 	;;
