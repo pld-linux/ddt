@@ -19,6 +19,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
 BuildRequires:	cgilibc-devel
+BuildRequires:	fhs-compliance
 BuildRequires:	libgcrypt-devel
 BuildRequires:	macrosystem-devel
 BuildRequires:	openssl-devel >= 0.9.7d
