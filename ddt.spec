@@ -2,7 +2,7 @@ Summary:	Dynamic DNS Tools server
 Summary(pl):	Serwer dynamicznego DNS-u
 Name:		ddt
 Version:	0.5.9
-Release:	2
+Release:	3
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -96,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d} \
 	$RPM_BUILD_ROOT{/etc/logrotate.d,/var/{lib/ddt-client,run/ddt}} \
-	$RPM_BUILD_ROOT/home/services/httpd/{cgi-bin,html/%{name}}
+	$RPM_BUILD_ROOT/srv/httpd/{cgi-bin,html/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -106,8 +106,8 @@ install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}-server
 install debian/ddt-client.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-client
 install debian/ddt-server.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-server
 
-install admin/templates/* $RPM_BUILD_ROOT/home/services/httpd/html/%{name}
-install admin/*.{conf,cgi} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin
+install admin/templates/* $RPM_BUILD_ROOT/srv/httpd/html/%{name}
+install admin/*.{conf,cgi} $RPM_BUILD_ROOT/srv/httpd/cgi-bin
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -170,6 +170,6 @@ fi
 
 %files cgi
 %defattr(644,root,root,755)
-%attr(755,root,root) /home/services/httpd/cgi-bin/*.cgi
-%attr(644,root,root) /home/services/httpd/cgi-bin/*.conf
-%attr(755,root,root) /home/services/httpd/html/%{name}
+%attr(755,root,root) /srv/httpd/cgi-bin/*.cgi
+%attr(644,root,root) /srv/httpd/cgi-bin/*.conf
+%attr(755,root,root) /srv/httpd/html/%{name}
