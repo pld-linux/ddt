@@ -85,9 +85,10 @@ echo "all install:" > docs/Makefile
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
-install -d $RPM_BUILD_ROOT%{_sysconfdir},/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT{%{_sysconfdir},/etc/rc.d/init.d}
 install -d $RPM_BUILD_ROOT/etc/logrotate.d
 install -d $RPM_BUILD_ROOT/var/{lib/ddt-client,run/ddt}
+install -d $RPM_BUILD_ROOT/home/services/httpd/{cgi-bin,html/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -96,6 +97,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}-client
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}-server
 install debian/ddt-client.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-client
 install debian/ddt-server.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-server
+
+install admin/templates/* $RPM_BUILD_ROOT/home/services/httpd/html/%{name}
+install admin/*.{conf,cgi} $RPM_BUILD_ROOT/home/services/httpd/cgi-bin/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -135,11 +139,15 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS BUGS NEWS README THANKS TODO
-%doc docs/*.sgml
+%doc docs/*.sgml docs/include/{named.conf,zonedb}
+%doc server/*.sql
 %attr(754,root,root) /etc/rc.d/init.d/%{name}-server
 %attr(755,root,root) %{_sbindir}/ddtd
 %{_mandir}/man8/ddtd.8*
+%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/ddtd.conf
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/%{name}-server
+%attr(644,root,root) %dir /var/lib/ddt-client
+%attr(644,root,root) %dir /var/run/ddt
 
 %files clients
 %defattr(644,root,root,755)
@@ -147,10 +155,13 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/%{name}-client
 %attr(755,root,root) %{_sbindir}/ddtc
 %attr(755,root,root) %{_sbindir}/ddtcd
-%config(noreplace) %{_sysconfdir}/ddtcd.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/ddtcd.conf
 %{_mandir}/man8/ddtc.8*
 %{_mandir}/man8/ddtcd.8*
 %attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/%{name}-client
 
 %files cgi
 %defattr(644,root,root,755)
+%attr(755,root,root) /home/services/httpd/cgi-bin/*.cgi
+%attr(644,root,root) /home/services/httpd/cgi-bin/*.conf
+%attr(755,root,root) /home/services/httpd/html/%{name}
