@@ -1,3 +1,6 @@
+# TODO
+#  - postgres deps and headers not working. (i failed to solve it)
+#  - URL inexistent, http://sourceforge.net/projects/ddt/
 Summary:	Dynamic DNS Tools server
 Summary(pl):	Serwer dynamicznego DNS-u
 Name:		ddt
@@ -24,7 +27,7 @@ BuildRequires:	libgcrypt-devel
 BuildRequires:	macrosystem-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	opt
-BuildRequires:	postgresql-c++-devel
+BuildRequires:	libpqxx-devel
 BuildRequires:	regexx-devel
 BuildRequires:	sgml-tools
 PreReq:		rc-scripts
