@@ -21,7 +21,7 @@ BuildRequires:	bind-devel >= 9.2.1-10
 BuildRequires:	cgilibc-devel
 BuildRequires:	libgcrypt-devel
 BuildRequires:	macrosystem-devel
-BuildRequires:	openssl-devel >= 0.9.7c
+BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	opt
 BuildRequires:	postgresql-c++-devel
 BuildRequires:	regexx-devel
