@@ -130,17 +130,17 @@ fi
 %post clients
 /sbin/chkconfig --add %{name}-client
 if [ -f /var/lock/subsys/%{name}-client ]; then
-        /etc/rc.d/init.d/%{name}-client restart >&2
+	/etc/rc.d/init.d/%{name}-client restart >&2
 else
-        echo "Run \"/etc/rc.d/init.d/%{name}-client start\" to start ddtcd daemon."
+	echo "Run \"/etc/rc.d/init.d/%{name}-client start\" to start ddtcd daemon."
 fi
 
 %preun clients
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/%{name}-client ]; then
-                /etc/rc.d/init.d/%{name}-client stop >&2
-        fi
-        /sbin/chkconfig --del %{name}-client
+	if [ -f /var/lock/subsys/%{name}-client ]; then
+		/etc/rc.d/init.d/%{name}-client stop >&2
+	fi
+	/sbin/chkconfig --del %{name}-client
 fi
 
 %files
