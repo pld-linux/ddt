@@ -4,7 +4,7 @@
 #
 # chkconfig:	345 30 70
 #
-# description:	ddt-server 
+# description:	ddt-server
 
 
 # Source function library
@@ -33,6 +33,7 @@ case "$1" in
 	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/ddt-server ]; then
 		msg_starting "Dynamic DNS Tools Server"
+		touch /var/run/ddt/ddtd.pid > /dev/null 2>&1
 		daemon ddtd
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ddt-server		
@@ -44,9 +45,9 @@ case "$1" in
 	if [ -f /var/lock/subsys/ddt-server ]; then
 		msg_stopping "Dynamic DNS Tools Server"
 		killproc ddtd
-		rm -f /var/run/ddtd.pid >/dev/null 2>&1
+		rm -f /var/run/ddt/ddtd.pid >/dev/null 2>&1
 	else
-		msg_not_runnin"Dynamic DNS Tools Server"
+		msg_not_running "Dynamic DNS Tools Server"
 		exit 1
 	fi	
 	;;
