@@ -1,19 +1,21 @@
 Summary:	Dynamic DNS Tools Server
 Summary(pl):	Serwer dynamicznego DNSu
 Name:		ddt
-Version:	0.5
+Version:	0.5.9
 Release:	1
 License:	GPL
 Group:		Networking/Daemons
 Source0:	http://download.sourceforge.net/ddt/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am_ac.patch
-URL:		http://www.ddt.org/
+URL:		http://www.ddts.org/
 Source1:	%{name}.init
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
 BuildRequires:	cgilib-devel
 BuildRequires:	openssl-devel >= 0.9.7
+BuildRequires:	postgresql-devel < 7.3.0
+BuildRequires:	libgcrypt-devel
 BuildRequires:	opt
 Prereq:		chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -52,8 +54,8 @@ rm -f missing
 	--enable-docs \
 	--enable-server \
 	--enable-admin \
-	--with-pgsql-lib=%{_libdir} \
-	--with-pgsql-include=%{_includedir}/postgresql/server
+	--with-pgsql-libdir=%{_libdir} \
+	--with-pgsql-incdir=%{_includedir}/postgresql
 %{__make}
 
 %install
