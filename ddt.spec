@@ -9,6 +9,7 @@ Source0:	http://download.sourceforge.net/ddt/%{name}-%{version}.tar.gz
 Patch0:		%{name}-am_ac.patch
 Patch1:		%{name}-cgi-to-cgic.patch
 Patch2:		%{name}-bind-includes-hack.patch
+Patch3:		%{name}-nobody.patch
 URL:		http://www.ddts.org/
 Source1:	%{name}-client.init
 Source2:	%{name}-server.init
@@ -64,6 +65,7 @@ Skrypty CGI do Serwera Dynamicznego DNSu.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 rm -f missing
