@@ -13,7 +13,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
 BuildRequires:	cgilib-devel
-BuildRequires:	openssl-devel
+BuildRequires:	openssl-devel >= 0.9.7
 BuildRequires:	opt
 Prereq:		chkconfig
 Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
