@@ -99,7 +99,7 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8} \
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-	
+
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}-client
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}-server
 install debian/ddt-client.logrotate $RPM_BUILD_ROOT/etc/logrotate.d/%{name}-client
