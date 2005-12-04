@@ -8,7 +8,7 @@ Version:	0.5.9
 Release:	3
 License:	GPL
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/ddt/%{name}-%{version}.tar.gz
 # Source0-md5:	30bb784bde3eef1e1a6eb61ab77f4b90
 Source1:	%{name}-client.init
 Source2:	%{name}-server.init
@@ -24,14 +24,14 @@ BuildRequires:	bind-devel >= 9.2.1-10
 BuildRequires:	cgilibc-devel
 BuildRequires:	fhs-compliance
 BuildRequires:	libgcrypt-devel
+BuildRequires:	libpqxx-devel
 BuildRequires:	macrosystem-devel
 BuildRequires:	openssl-devel >= 0.9.7d
 BuildRequires:	opt
-BuildRequires:	libpqxx-devel
 BuildRequires:	regexx-devel
 BuildRequires:	sgml-tools
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -49,8 +49,8 @@ dynamicznego DNS-u.
 Summary:	Dynamic DNS Tools client
 Summary(pl):	Klient dynamicznego DNS-u
 Group:		Applications/Networking
-PreReq:		rc-scripts
 Requires(post,preun):	/sbin/chkconfig
+Requires:	rc-scripts
 
 %description clients
 Dynamic DNS Tools client.
@@ -156,8 +156,8 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/%{name}-server
 %attr(755,root,root) %{_sbindir}/ddtd
 %{_mandir}/man8/ddtd.8*
-%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/ddtd.conf
-%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/%{name}-server
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ddtd.conf
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}-server
 %attr(644,root,root) %dir /var/lib/ddt-client
 %attr(644,root,root) %dir /var/run/ddt
 
@@ -167,10 +167,10 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/%{name}-client
 %attr(755,root,root) %{_sbindir}/ddtc
 %attr(755,root,root) %{_sbindir}/ddtcd
-%attr(640,root,root) %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/ddtcd.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ddtcd.conf
 %{_mandir}/man8/ddtc.8*
 %{_mandir}/man8/ddtcd.8*
-%attr(644,root,root) %config(noreplace) %verify(not size mtime md5) /etc/logrotate.d/%{name}-client
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}-client
 
 %files cgi
 %defattr(644,root,root,755)
