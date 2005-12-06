@@ -1,6 +1,5 @@
 # TODO
 #  - postgres deps and headers not working. (i failed to solve it)
-#  - URL inexistent, http://sourceforge.net/projects/ddt/
 Summary:	Dynamic DNS Tools server
 Summary(pl):	Serwer dynamicznego DNS-u
 Name:		ddt
@@ -17,7 +16,7 @@ Patch1:		%{name}-cgi-to-cgic.patch
 Patch2:		%{name}-bind-includes-hack.patch
 Patch3:		%{name}-nobody.patch
 Patch4:		%{name}-postgresql.patch
-URL:		http://www.ddts.org/
+URL:		http://sourceforge.net/projects/ddt/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bind-devel >= 9.2.1-10
@@ -79,7 +78,6 @@ Skrypty CGI do serwera dynamicznego DNS-u.
 %patch4 -p1
 
 %build
-rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__automake}
@@ -157,9 +155,9 @@ fi
 %attr(755,root,root) %{_sbindir}/ddtd
 %{_mandir}/man8/ddtd.8*
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ddtd.conf
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}-server
-%attr(644,root,root) %dir /var/lib/ddt-client
-%attr(644,root,root) %dir /var/run/ddt
+%config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}-server
+%dir /var/lib/ddt-client
+%dir /var/run/ddt
 
 %files clients
 %defattr(644,root,root,755)
@@ -170,10 +168,10 @@ fi
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/ddtcd.conf
 %{_mandir}/man8/ddtc.8*
 %{_mandir}/man8/ddtcd.8*
-%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}-client
+%config(noreplace) %verify(not md5 mtime size) /etc/logrotate.d/%{name}-client
 
 %files cgi
 %defattr(644,root,root,755)
 %attr(755,root,root) /srv/httpd/cgi-bin/*.cgi
-%attr(644,root,root) /srv/httpd/cgi-bin/*.conf
+/srv/httpd/cgi-bin/*.conf
 %attr(755,root,root) /srv/httpd/html/%{name}
