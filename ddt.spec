@@ -1,7 +1,7 @@
 # TODO
 #  - postgres deps and headers not working. (i failed to solve it)
 Summary:	Dynamic DNS Tools server
-Summary(pl.UTF-8):   Serwer dynamicznego DNS-u
+Summary(pl.UTF-8):	Serwer dynamicznego DNS-u
 Name:		ddt
 Version:	0.5.9
 Release:	3
@@ -46,7 +46,7 @@ dynamicznego DNS-u.
 
 %package clients
 Summary:	Dynamic DNS Tools client
-Summary(pl.UTF-8):   Klient dynamicznego DNS-u
+Summary(pl.UTF-8):	Klient dynamicznego DNS-u
 Group:		Applications/Networking
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
@@ -59,7 +59,7 @@ Klient dynamicznego DNS-u.
 
 %package cgi
 Summary:	CGI scripts for Dynamic DNS Tools server
-Summary(pl.UTF-8):   Skrypty CGI do serwera dynamicznego DNS-u
+Summary(pl.UTF-8):	Skrypty CGI do serwera dynamicznego DNS-u
 Group:		Applications/Networking
 Requires:	webserver
 
