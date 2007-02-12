@@ -1,7 +1,7 @@
 # TODO
 #  - postgres deps and headers not working. (i failed to solve it)
 Summary:	Dynamic DNS Tools server
-Summary(pl):	Serwer dynamicznego DNS-u
+Summary(pl.UTF-8):   Serwer dynamicznego DNS-u
 Name:		ddt
 Version:	0.5.9
 Release:	3
@@ -38,15 +38,15 @@ DDT stands for Dynamic DNS Tools. The goal of the project is to
 provide an open and free (in the GPL-sense) set of tools that will
 permit the deployment of secure and reliable dynamic DNS services.
 
-%description -l pl
-DDT oznacza Dynamiczne Narzêdzia DNS-u. Celem projektu jest
-dostarczenie otwartego i wolnego (w sensie GPL) zestawu narzêdzi
-pozwalaj±cych na stworzenie bezpiecznego i niezawodnego systemu
+%description -l pl.UTF-8
+DDT oznacza Dynamiczne NarzÄ™dzia DNS-u. Celem projektu jest
+dostarczenie otwartego i wolnego (w sensie GPL) zestawu narzÄ™dzi
+pozwalajÄ…cych na stworzenie bezpiecznego i niezawodnego systemu
 dynamicznego DNS-u.
 
 %package clients
 Summary:	Dynamic DNS Tools client
-Summary(pl):	Klient dynamicznego DNS-u
+Summary(pl.UTF-8):   Klient dynamicznego DNS-u
 Group:		Applications/Networking
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
@@ -54,19 +54,19 @@ Requires:	rc-scripts
 %description clients
 Dynamic DNS Tools client.
 
-%description clients -l pl
+%description clients -l pl.UTF-8
 Klient dynamicznego DNS-u.
 
 %package cgi
 Summary:	CGI scripts for Dynamic DNS Tools server
-Summary(pl):	Skrypty CGI do serwera dynamicznego DNS-u
+Summary(pl.UTF-8):   Skrypty CGI do serwera dynamicznego DNS-u
 Group:		Applications/Networking
 Requires:	webserver
 
 %description cgi
 CGI scripts for Dynamic DNS Tools server.
 
-%description cgi -l pl
+%description cgi -l pl.UTF-8
 Skrypty CGI do serwera dynamicznego DNS-u.
 
 %prep
